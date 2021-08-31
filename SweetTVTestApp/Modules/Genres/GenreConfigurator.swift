@@ -8,19 +8,19 @@
 import UIKit
 
 protocol GenreConfiguratorProtocol: class {
-    func configure(with viewController: GenreViewController)
+    func configure() -> GenreViewController
 }
 
 class GenreConfigurator: GenreConfiguratorProtocol {
     
-    func configure(with viewController: GenreViewController) {
-        
-        let presenter = GenrePresenter(view: viewController)
+    func configure() -> GenreViewController {
+        let view = GenreViewController()
+        let presenter = GenrePresenter(view: view)
+        view.presenter = presenter
         let interactor = GenreInteractor(presenter: presenter)
-        let router = GenreRouter(viewController: viewController)
-        
-        viewController.presenter = presenter
+        let router = GenreRouter(viewController: view)
         presenter.interactor = interactor
         presenter.router = router
+        return view
     }
 }

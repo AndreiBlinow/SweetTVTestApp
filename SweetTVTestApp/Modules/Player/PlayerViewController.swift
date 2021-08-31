@@ -1,9 +1,23 @@
-//
-//  PlayerViewController.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 31.12.2014.
-//
 
-import AVKit
-import AVFoundation
+
+import UIKit
+import GRPC
+import SwiftProtobuf
+import Foundation
+import NIO
+
+protocol PlayerViewProtocol: AnyObject {
+    //func setUrlButtonTitle(with title: String)
+}
+
+class PlayerViewController: UIViewController, PlayerViewProtocol {
+    
+    var presenter: PlayerPresenterProtocol!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    
+    
+}

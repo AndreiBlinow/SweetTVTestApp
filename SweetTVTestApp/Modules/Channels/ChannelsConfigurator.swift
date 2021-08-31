@@ -3,19 +3,19 @@
 import UIKit
 
 protocol ChannelsConfiguratorProtocol: class {
-    func configure(with viewController: ChannelsViewController)
+    func configure() -> ChannelsViewController
 }
 
 class ChannelsConfigurator: ChannelsConfiguratorProtocol {
     
-    func configure(with viewController: ChannelsViewController) {
-        
-        let presenter = ChannelsPresenter(view: viewController)
+    func configure() -> ChannelsViewController {
+        let view = ChannelsViewController()
+        let presenter = ChannelsPresenter(view: view)
+        view.presenter = presenter
         let interactor = ChannelsInteractor(presenter: presenter)
-        let router = ChannelsRouter(viewController: viewController)
-        
-        viewController.presenter = presenter
+        let router = ChannelsRouter(viewController: view)
         presenter.interactor = interactor
         presenter.router = router
+        return view
     }
 }
