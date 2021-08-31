@@ -20,8 +20,15 @@ class ChannelsPresenter: ChannelsPresenterProtocol {
     
     // MARK: - AboutPresenterProtocol methods
     func channelClicked(index: Int) {
-    let responce = interactor.makeOpenStreamCall(idOfChannel: channels[index].id)
-        router.closeCurrentViewController()
+        let response = interactor.makeOpenStreamCall(idOfChannel: channels[index].id)
+        let httpStream = response.httpStream
+        let host = httpStream.host.address
+        let port = httpStream.host.port
+        let url = httpStream.url
+        let streamId = response.streamID
+        let stream = "http://\(host):\(port)\(url)"
+        print(stream)
+        router.closeCurrentViewController(url: stream)
     }
     func getChannelsNameList() -> [String] {
         channels = interactor.getListOfChannels()

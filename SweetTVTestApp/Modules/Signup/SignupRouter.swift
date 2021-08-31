@@ -15,6 +15,8 @@ class SignupRouter: SignupRouterProtocol {
     }
     
     func userSignedUP() {
-        viewController.dismiss(animated: true, completion: nil)
+        let channelsView = ChannelsConfigurator().configure()
+        viewController.navigationController?.pushViewController(channelsView, animated: true)
+        viewController.dismiss(animated: false, completion: nil)
     }
 }

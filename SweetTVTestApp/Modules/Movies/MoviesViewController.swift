@@ -12,7 +12,7 @@ protocol MoviesViewProtocol: class {
 class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDelegate, UITableViewDataSource{
         
     var presenter: MoviesPresenterProtocol!
-    let configurator: MoviesConfiguratorProtocol = MoviesConfigurator()
+    
     var movieList = [String]()
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
         self.view.addSubview(myTableView)
         
         
-        configurator.configure(with: self)
+        
     }
     
     

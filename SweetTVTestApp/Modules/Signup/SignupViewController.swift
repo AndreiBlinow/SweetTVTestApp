@@ -8,10 +8,11 @@ import NIO
 
 protocol SignupViewProtocol: AnyObject {
     //func setUrlButtonTitle(with title: String)
+    func showSMSFiled()
 }
 
-    class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDelegate {
-    
+class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDelegate {
+   
     var presenter: SignupPresenterProtocol!
     var phoneNumberSet = false
     //    let configurator: SignupConfiguratorProtocol = SignupConfigurator()
@@ -32,7 +33,7 @@ protocol SignupViewProtocol: AnyObject {
         tf.textAlignment = .center
         tf.placeholder = "Enter confirmation code"
         tf.keyboardType = .numbersAndPunctuation
-//        textField.becomeFirstResponder()
+        //        textField.becomeFirstResponder()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.isHidden = true
         return tf
@@ -88,41 +89,61 @@ protocol SignupViewProtocol: AnyObject {
         ])
     }
     
-    
     @objc func authNewUser() {
-        
-        if !phoneNumberSet {
+        if phoneTextfield.isUserInteractionEnabled {
             guard let phone = phoneTextfield.text else {
                 return
             }
-            if !setPhoneNumber(number: phone) {
-                self.present(alertController, animated: true, completion: nil)
-            }
+            presenter.phoneNumberEntered(phone: phone)
+           
         } else {
-            guard let code = phoneTextfield.text else {
+            guard let code = confirmationCodetextField.text else {
                 return
             }
-            if !setConfirmationCode (code: code) {
-                self.present(alertController, animated: true, completion: nil)
-            }
+            presenter.confirmationCodeEntered(code: code)
         }
-    }
-                
-    func setPhoneNumber(number: String) -> Bool {
-        let setPhoneResult = presenter.phoneNumberEntered(phone: number)
-        if setPhoneResult == "ok" {
-            phoneTextfield.allowsEditingTextAttributes = false
-            confirmationCodetextField.isHidden = false
-            return true
-        } else {return false}
+        
     }
         
-    func setConfirmationCode(code: String) -> Bool {
-        let setCodeResult = presenter.confirmationCodeEntered(code: code)
-        if setCodeResult != "ok" {
-            return false
-        }
-        return true
+    //    @objc func authNewUser() {
+    //
+    //        if !phoneNumberSet {
+    //            guard let phone = phoneTextfield.text else {
+    //                return
+    //            }
+    //            if !setPhoneNumber(number: phone) {
+    //                self.present(alertController, animated: true, completion: nil)
+    //            }
+    //        } else {
+    //            guard let code = confirmationCodetextField.text else {
+    //                return
+    //            }
+    //            setConfirmationCode(code: code)
+    //        }
+    //    }
+    
+    func showSMSFiled() {
+        confirmationCodetextField.isHidden = false
+        phoneTextfield.isUserInteractionEnabled = false
     }
+    
+//    func setPhoneNumber(number: String) -> Bool {
+//        let setPhoneResult = presenter.phoneNumberEntered(phone: number)
+//        if setPhoneResult == "ok" {
+//            phoneNumberSet = true
+//            phoneTextfield.allowsEditingTextAttributes = false
+//            confirmationCodetextField.isHidden = false
+//            return true
+//        } else {return false}
+//    }
+    
+//    func setConfirmationCode(code: String) -> Bool {
+//        let setCodeResult = presenter.confirmationCodeEntered(code: code)
+//        if setCodeResult != "ok" {
+//            self.present(alertController, animated: true, completion: nil)
+//            return false
+//        }
+//        return true
+//    }
     
 }

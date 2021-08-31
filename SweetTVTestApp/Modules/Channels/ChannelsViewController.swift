@@ -15,12 +15,11 @@ protocol ChannelsViewProtocol: class {
 class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableViewDelegate, UITableViewDataSource{
         
     var presenter: ChannelsPresenterProtocol!
-    let configurator: ChannelsConfiguratorProtocol = ChannelsConfigurator()
+    
     var channelsNameList = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(with: self)
         channelsNameList = presenter.getChannelsNameList()
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -37,6 +36,7 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.channelClicked(index: indexPath.row)
+//        self.present(PlayerViewController(), animated: false, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

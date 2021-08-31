@@ -27,7 +27,7 @@ protocol GenreViewProtocol: class {
 class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDelegate, UITableViewDataSource{
         
     var presenter: GenrePresenterProtocol!
-    let configurator: GenreConfiguratorProtocol = GenreConfigurator()
+    
     var genreList = [String]()
     
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
         self.view.addSubview(myTableView)
         
         
-        configurator.configure(with: self)
+        
     }
     
     
