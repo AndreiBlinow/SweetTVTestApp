@@ -2,7 +2,7 @@
 import UIKit
 
 protocol SignupRouterProtocol: AnyObject {
-    func closeCurrentViewController()
+    func userSignedUP()
 }
 
 
@@ -14,7 +14,7 @@ class SignupRouter: SignupRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController() {
+    func userSignedUP() {
         viewController.dismiss(animated: true, completion: nil)
     }
 }

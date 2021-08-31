@@ -10,11 +10,34 @@ protocol SignupViewProtocol: AnyObject {
     //func setUrlButtonTitle(with title: String)
 }
 
-class SignupViewController: UIViewController, SignupViewProtocol {
+    class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDelegate {
     
     var presenter: SignupPresenterProtocol!
+    var phoneNumberSet = false
     //    let configurator: SignupConfiguratorProtocol = SignupConfigurator()
-    var textField = UITextField()
+    var phoneTextfield: UITextField = {
+        let tf = UITextField()
+        tf.borderStyle = .roundedRect
+        tf.contentVerticalAlignment = .center
+        tf.textAlignment = .center
+        tf.placeholder = "Enter your phone number 380*********"
+        tf.keyboardType = .numbersAndPunctuation
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    var confirmationCodetextField: UITextField = {
+        let tf = UITextField()
+        tf.borderStyle = .roundedRect
+        tf.contentVerticalAlignment = .center
+        tf.textAlignment = .center
+        tf.placeholder = "Enter confirmation code"
+        tf.keyboardType = .numbersAndPunctuation
+//        textField.becomeFirstResponder()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.isHidden = true
+        return tf
+    }()
+    
     var signUpbutton: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .red
@@ -24,51 +47,42 @@ class SignupViewController: UIViewController, SignupViewProtocol {
         return btn
     }()
     
-    var alertController = UIAlertController(title: "Error", message: "Wrong Number", preferredStyle: .alert)
+    var alertController: UIAlertController = {
+        let alco = UIAlertController(title: "Error", message: "Wrong Number", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+            
+        }
+        alco.addAction(action)
+        return alco
+    }()
+    
+    
     var userPhoneNumber = ""
     var confirmationCode = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createSignUpTextTextField()
-        createAlert()
         setConstraints()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        textField.becomeFirstResponder()
-    }
-    
-    func createSignUpTextTextField() {
-        textField.borderStyle = .roundedRect
-        textField.contentVerticalAlignment = .center
-        textField.textAlignment = .center
-        textField.placeholder = "Enter your phone number 380*********"
-        textField.keyboardType = .numbersAndPunctuation
-//        textField.becomeFirstResponder()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    
-    func createAlert(){
-        let action = UIAlertAction(title: "Ok", style: .default) { (action) in
-            
-        }
-        alertController.addAction(action)
+        phoneTextfield.becomeFirstResponder()
     }
     
     private func setConstraints() {
-        view.addSubview(self.textField)
+        view.addSubview(self.phoneTextfield)
+        view.addSubview(self.confirmationCodetextField)
         view.addSubview(self.signUpbutton)
         NSLayoutConstraint.activate([
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            textField.widthAnchor.constraint(equalToConstant: 200),
-            textField.heightAnchor.constraint(equalToConstant: 31),
+            phoneTextfield.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            phoneTextfield.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            phoneTextfield.widthAnchor.constraint(equalToConstant: 200),
+            phoneTextfield.heightAnchor.constraint(equalToConstant: 31),
+            confirmationCodetextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),confirmationCodetextField.topAnchor.constraint(equalTo: phoneTextfield.bottomAnchor, constant: 30),confirmationCodetextField.widthAnchor.constraint(equalToConstant: 200),confirmationCodetextField.heightAnchor.constraint(equalToConstant: 31),
             signUpbutton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signUpbutton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 30),
+            signUpbutton.topAnchor.constraint(equalTo: confirmationCodetextField.bottomAnchor, constant: 30),
             signUpbutton.widthAnchor.constraint(equalToConstant: 100),
             signUpbutton.heightAnchor.constraint(equalToConstant: 31),
         ])
@@ -76,46 +90,39 @@ class SignupViewController: UIViewController, SignupViewProtocol {
     
     
     @objc func authNewUser() {
-        if userPhoneNumber == "" {
-            var phoneNumber = textField.text
-            guard let number = Int(phoneNumber!) else {
-                self.present(alertController, animated: true) {
-                    self.textField.text = ""
-                }
+        
+        if !phoneNumberSet {
+            guard let phone = phoneTextfield.text else {
                 return
             }
-            if number > 380000000000 && number < 390000000000 {
-                userPhoneNumber = textField.text!
-                presenter.phoneNumberEntered(phone: phoneNumber ?? "")
-                self.textField.placeholder = "Enter confirmation code"
-            }else {
-                self.present(alertController, animated: true) {
-                    self.textField.text = ""
-                }
+            if !setPhoneNumber(number: phone) {
+                self.present(alertController, animated: true, completion: nil)
             }
         } else {
-            var confirmationCode = textField.text
-            guard let number = Int(confirmationCode!) else {
-                self.present(alertController, animated: true) {
-                    self.textField.text = ""
-                }
+            guard let code = phoneTextfield.text else {
                 return
             }
-            if number < 10000 {
-                confirmationCode = textField.text!
-                guard let code =  Int32(confirmationCode ?? "") else {
-                    return
-                }
-                presenter.confirmationCodeEntered(code: code)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.present(ChannelsViewController(), animated: false)
-                }
-                self.textField.placeholder = "Enter confirmation code"
-            }else {
-                self.present(alertController, animated: true) {
-                    self.textField.text = ""
-                }
+            if !setConfirmationCode (code: code) {
+                self.present(alertController, animated: true, completion: nil)
             }
         }
     }
+                
+    func setPhoneNumber(number: String) -> Bool {
+        let setPhoneResult = presenter.phoneNumberEntered(phone: number)
+        if setPhoneResult == "ok" {
+            phoneTextfield.allowsEditingTextAttributes = false
+            confirmationCodetextField.isHidden = false
+            return true
+        } else {return false}
+    }
+        
+    func setConfirmationCode(code: String) -> Bool {
+        let setCodeResult = presenter.confirmationCodeEntered(code: code)
+        if setCodeResult != "ok" {
+            return false
+        }
+        return true
+    }
+    
 }

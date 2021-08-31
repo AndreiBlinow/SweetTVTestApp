@@ -14,7 +14,7 @@ protocol GenreInteractorProtocol: class {
 class GenreInteractor: GenreInteractorProtocol {
     
     weak var presenter: GenrePresenterProtocol!
-    var repository = Repositoryy()
+    var repository = DataRepository.shared
     
     required init(presenter: GenrePresenterProtocol) {
         self.presenter = presenter
@@ -22,10 +22,10 @@ class GenreInteractor: GenreInteractorProtocol {
     
     func getListOfGenries() -> [MovieService_Genre] {
         
-        let movieServiceChannel = DataRepository.shared.getMovieService()
+        let movieServiceChannel = repository.getMovieService()
         
         var movieGenreRequest = MovieService_GetConfigurationRequest()
-        movieGenreRequest.auth = DataRepository.shared.getToken()
+        movieGenreRequest.auth = repository.getToken()
         
         print("REQUEST MESSAGE \(movieGenreRequest)")
         let call = movieServiceChannel.getConfiguration(movieGenreRequest)

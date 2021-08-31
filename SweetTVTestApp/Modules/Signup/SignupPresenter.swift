@@ -1,8 +1,8 @@
 
 
 protocol SignupPresenterProtocol: AnyObject {
-    func phoneNumberEntered(phone: String) -> SignupService_SetPhoneResponse
-    func confirmationCodeEntered(code: Int32) -> SignupService_SetCodeResponse
+    func phoneNumberEntered(phone: String) -> String
+    func confirmationCodeEntered(code: String) -> String
     var router: SignupRouterProtocol! { set get }
     
 }
@@ -14,26 +14,34 @@ class SignupPresenter: SignupPresenterProtocol {
     var router: SignupRouterProtocol!
     
     
+    
     required init(view: SignupViewProtocol) {
         self.view = view
         
     }
     
-    func phoneNumberEntered(phone: String) -> SignupService_SetPhoneResponse {
+    func phoneNumberEntered(phone: String) -> String {
         var response = SignupService_SetPhoneResponse()
         response = interactor.makeAuthCall(phoneNumber: phone)
         print(response.status)
-        return response
+        if response.status == .ok {
+            return "ok"
+        }
+        return ""
     }
     
-    func confirmationCodeEntered(code: Int32) -> SignupService_SetCodeResponse {
-        var response: SignupService_SetCodeResponse
-        response = interactor.makeConfirmationCall(code: code)
-        DataRepository.shared.setToken(token: response.authToken)
-        if response.status == .ok {
-            print(response.status)
+    func confirmationCodeEntered (code: String) -> String {
+        guard let confCode = Int32( code ) else {
+            return ""
         }
-        return response
+        let response = interactor.makeConfirmationCall(code: confCode)
+        
+        if response.status == .ok {
+            DataRepository.shared.setToken(token: response.authToken)
+            router.userSignedUP()
+            return "ok"
+        }
+        return ""
     }
     
     
