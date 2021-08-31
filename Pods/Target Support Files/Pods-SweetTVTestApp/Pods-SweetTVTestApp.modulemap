@@ -1,0 +1,6 @@
+framework module Pods_SweetTVTestApp {
+  umbrella header "Pods-SweetTVTestApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
