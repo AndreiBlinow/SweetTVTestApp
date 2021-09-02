@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol GenreConfiguratorProtocol: class {
+protocol GenreConfiguratorProtocol: AnyObject {
     func configure() -> GenreViewController
 }
 

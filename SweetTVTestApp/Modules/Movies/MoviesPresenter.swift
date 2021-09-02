@@ -21,8 +21,8 @@ class MoviesPresenter: MoviesPresenterProtocol {
     func movieClicked(genreName: String){
         router.closeCurrentViewController()
     }
-    func getMoviesList() -> [String] {
-        var movies = interactor.getListOfMovies()
+    func getMoviesList(genreID: Int32) -> [String] {
+        var movies = interactor.getListOfMovies(genre: Int32)
         moviesList = movies.map{ $0.title }
         return moviesList
     }

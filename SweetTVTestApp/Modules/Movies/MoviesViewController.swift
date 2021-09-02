@@ -12,11 +12,17 @@ protocol MoviesViewProtocol: class {
 class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDelegate, UITableViewDataSource{
         
     var presenter: MoviesPresenterProtocol!
-    
+    var genreID: Int32?
     var movieList = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let genreId = genreID else {
+            return
+        }
+        
+        movieList = presenter.getMoviesList(genreId)
         
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -43,7 +49,6 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        movieList = presenter.getMoviesList()
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(movieList[indexPath.row])"
         return cell

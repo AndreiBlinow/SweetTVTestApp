@@ -22,12 +22,13 @@ class MoviesInteractor: MoviesInteractorProtocol {
     
     
     
-    func getMoviesIDs() -> [Int32] {
+    func getMoviesIDs(genre: Int32) -> [Int32] {
         
         let movieService = repository.getMovieService()
         
         var movieIDsRequest = MovieService_GetGenreMoviesRequest()
         movieIDsRequest.auth = DataRepository.shared.getToken()
+        movieIDsRequest.genreID = genre
         
         
         print("REQUEST MESSAGE \(movieIDsRequest)")
@@ -37,22 +38,19 @@ class MoviesInteractor: MoviesInteractorProtocol {
         return response.movies
     }
     
-    func getListOfMovies() -> [MovieService_Movie] {
-        let headers: HPACKHeaders = ["authentication": DataRepository.shared.getToken()]
-        //let headers: HPACKHeaders = ["authentication": "94b515fded1cad1773e8df95544abcb5"]
-        let callOptions = CallOptions(customMetadata: headers)
-        let movieServiceChannel = DataRepository.shared.getMovieService()
+    func getListOfMovies(genre: String) -> [MovieService_Movie] {
         
+        let movieServiceChannel = DataRepository.shared.getMovieService()
         
         var movieListRequest = MovieService_GetMovieInfoRequest()
         movieListRequest.auth = repository.getToken()  
         movieListRequest.offset = 30
         movieListRequest.needExtendedInfo = false
         movieListRequest.limit = 100
-        movieListRequest.movies = getMoviesIDs()
+        movieListRequest.movies = getMoviesIDs(genre: genre)
         
         print("REQUEST MESSAGE \(movieListRequest)")
-        let call = movieServiceChannel.getMovieInfo(movieListRequest, callOptions: callOptions)
+        let call = movieServiceChannel.getMovieInfo(movieListRequest)
         let response = try! call.response.wait()
         print("CALL SUCCESS WITH RESPONSE \(response)")
         return response.movies

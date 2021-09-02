@@ -1,19 +1,14 @@
-//
-//  GenreConfigurator.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
+
 
 import UIKit
 
-protocol MoviesConfiguratorProtocol: class {
-    func configure() -> MoviesViewController
+protocol MoviesConfiguratorProtocol: AnyObject {
+    func configure(genreID: Int32) -> MoviesViewController
 }
 
 class MoviesConfigurator: MoviesConfiguratorProtocol {
     
-    func configure() -> MoviesViewController {
+    func configure(genreID: Int32) -> MoviesViewController {
         let view = MoviesViewController()
         let presenter = MoviesPresenter(view: view)
         view.presenter = presenter

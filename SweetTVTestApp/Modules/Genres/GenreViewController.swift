@@ -32,7 +32,7 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        genreList = presenter.getGenreList()
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
@@ -50,7 +50,7 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.genreClicked(genreName: genreList[indexPath.row])
+        presenter.genreClicked(genreID: indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,7 +58,6 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        genreList = presenter.getGenreList()
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(genreList[indexPath.row])"
         return cell

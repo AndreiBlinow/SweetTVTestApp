@@ -13,11 +13,8 @@ class SignupPresenter: SignupPresenterProtocol {
     var interactor: SignupInteractorProtocol!
     var router: SignupRouterProtocol!
     
-    
-    
     required init(view: SignupViewProtocol) {
         self.view = view
-        
     }
     
     func phoneNumberEntered(phone: String) {

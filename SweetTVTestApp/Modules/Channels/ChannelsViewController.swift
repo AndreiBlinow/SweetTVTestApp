@@ -46,7 +46,6 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(channelsNameList[indexPath.row])"
-        //cell.textLabel!.text = "\(channelListResponse[indexPath.row].name)"
         return cell
     }
 }

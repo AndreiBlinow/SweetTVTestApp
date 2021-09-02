@@ -78,7 +78,7 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
         view.addSubview(self.signUpbutton)
         NSLayoutConstraint.activate([
             phoneTextfield.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            phoneTextfield.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            phoneTextfield.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 90),
             phoneTextfield.widthAnchor.constraint(equalToConstant: 200),
             phoneTextfield.heightAnchor.constraint(equalToConstant: 31),
             confirmationCodetextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),confirmationCodetextField.topAnchor.constraint(equalTo: phoneTextfield.bottomAnchor, constant: 30),confirmationCodetextField.widthAnchor.constraint(equalToConstant: 200),confirmationCodetextField.heightAnchor.constraint(equalToConstant: 31),
@@ -105,45 +105,11 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
         
     }
         
-    //    @objc func authNewUser() {
-    //
-    //        if !phoneNumberSet {
-    //            guard let phone = phoneTextfield.text else {
-    //                return
-    //            }
-    //            if !setPhoneNumber(number: phone) {
-    //                self.present(alertController, animated: true, completion: nil)
-    //            }
-    //        } else {
-    //            guard let code = confirmationCodetextField.text else {
-    //                return
-    //            }
-    //            setConfirmationCode(code: code)
-    //        }
-    //    }
     
     func showSMSFiled() {
         confirmationCodetextField.isHidden = false
         phoneTextfield.isUserInteractionEnabled = false
     }
-    
-//    func setPhoneNumber(number: String) -> Bool {
-//        let setPhoneResult = presenter.phoneNumberEntered(phone: number)
-//        if setPhoneResult == "ok" {
-//            phoneNumberSet = true
-//            phoneTextfield.allowsEditingTextAttributes = false
-//            confirmationCodetextField.isHidden = false
-//            return true
-//        } else {return false}
-//    }
-    
-//    func setConfirmationCode(code: String) -> Bool {
-//        let setCodeResult = presenter.confirmationCodeEntered(code: code)
-//        if setCodeResult != "ok" {
-//            self.present(alertController, animated: true, completion: nil)
-//            return false
-//        }
-//        return true
-//    }
+
     
 }

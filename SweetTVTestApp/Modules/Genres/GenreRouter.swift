@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol GenreRouterProtocol: class {
-    func closeCurrentViewController()
+protocol GenreRouterProtocol: AnyObject {
+    func closeCurrentViewController(genreID: Int32)
 }
 
 
@@ -20,7 +20,10 @@ class GenreRouter: GenreRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController() {
-        viewController.dismiss(animated: true, completion: nil)
+    func closeCurrentViewController(genreID: Int32) {
+        
+        let moviesView = MoviesConfigurator().configure(genreID: genreID)
+        viewController.present(moviesView, animated: false)
+              
     }
 }
