@@ -6,8 +6,8 @@ import Foundation
 import NIO
 import NIOHPACK
 
-protocol MoviesInteractorProtocol: class {
-    func getListOfMovies() -> [MovieService_Movie]
+protocol MoviesInteractorProtocol: AnyObject {
+    func getListOfMovies(genre: Int32) -> [MovieService_Movie]
 }
 
 
@@ -38,7 +38,7 @@ class MoviesInteractor: MoviesInteractorProtocol {
         return response.movies
     }
     
-    func getListOfMovies(genre: String) -> [MovieService_Movie] {
+    func getListOfMovies(genre: Int32) -> [MovieService_Movie] {
         
         let movieServiceChannel = DataRepository.shared.getMovieService()
         

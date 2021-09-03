@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ChannelsRouterProtocol: AnyObject {
-    func closeCurrentViewController(url: String)
+    func closeCurrentViewController(url: String, id: Int32)
 }
 
 
@@ -20,8 +20,8 @@ class ChannelsRouter: ChannelsRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController(url: String) {
-        let playerView = PlayerConfigurator().configure(url: url)
+    func closeCurrentViewController(url: String, id: Int32) {
+        let playerView = PlayerConfigurator().configure(url: url, channelID: id)
         viewController.present(playerView, animated: false)
     }
 }

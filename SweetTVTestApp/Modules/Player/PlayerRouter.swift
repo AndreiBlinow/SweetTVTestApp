@@ -5,7 +5,7 @@ import Foundation
 
 
 protocol PlayerRouterProtocol: AnyObject {
-    
+    func closeView()
     
 }
         
@@ -16,4 +16,7 @@ class PlayerRouter: PlayerRouterProtocol {
         self.viewController = viewController
     }
     
+    func closeView(){
+        viewController.dismiss(animated: false, completion: nil)
+    }
 }

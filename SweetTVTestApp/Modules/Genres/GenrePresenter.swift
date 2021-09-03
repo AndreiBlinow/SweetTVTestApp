@@ -9,7 +9,7 @@ protocol GenrePresenterProtocol: class {
     var router: GenreRouterProtocol! { set get }
     var genres: [MovieService_Genre] {get set}
     func getGenreList () -> [String]
-    func genreClicked(index: Int32)
+    func genreClicked(index: Int)
 }
         
 class GenrePresenter: GenrePresenterProtocol {
@@ -25,10 +25,12 @@ class GenrePresenter: GenrePresenterProtocol {
     }
 
     func genreClicked(index: Int){
-        router.closeCurrentViewController(genreID: genres[index].id)
+        var id = genres[index].id
+        print(id)
+        router.closeCurrentViewController(genreID: id)
     }
     func getGenreList() -> [String] {
-        var genres = interactor.getListOfGenries()
+        genres = interactor.getListOfGenries()
         var genreList = genres.map{ $0.title }
         return genreList
     }

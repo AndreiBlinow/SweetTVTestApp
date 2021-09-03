@@ -16,6 +16,7 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
     
     var presenter: PlayerPresenterProtocol!
     var urlString: String?
+    var channelID: Int32?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +31,38 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
         let player = AVPlayer(playerItem: playerItem)
         
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds //bounds of the view in which AVPlayer should be displayed
-        playerLayer.videoGravity = .resizeAspect
+        playerLayer.frame = self.view.bounds
+        playerLayer.videoGravity = .resizeAspectFill
         
         self.view.layer.addSublayer(playerLayer)
+        
         player.play()
     }
     
+    var closeButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .red
+        btn.setTitle("Confirm", for: .normal)
+        btn.addTarget(self, action: #selector(closePlayer), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
     
+    private func setConstraints() {
+        view.addSubview(self.closeButton)
+        
+        NSLayoutConstraint.activate([
+            closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20),
+            closeButton.widthAnchor.constraint(equalToConstant: 30),
+            closeButton.heightAnchor.constraint(equalToConstant: 31),
+        ])
+    }
     
+    @objc func closePlayer() {
+        if let id = channelID {
+            presenter.closeStream(id: id)
+        }
+        presenter.closePlayer()
+    }
 }

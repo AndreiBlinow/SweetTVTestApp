@@ -62,12 +62,11 @@
 		76F797F53D6950B700777461 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F33D6950B700777461 /* Main.storyboard */; };
 		76F797F73D6950BC00777461 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F63D6950BC00777461 /* Assets.xcassets */; };
 		76F797FA3D6950BC00777461 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F83D6950BC00777461 /* LaunchScreen.storyboard */; };
-		7B7E22029A14F22AB21E8CF5 /* Pods_SweetTVTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD6E583AB398BE15E5182A7 /* Pods_SweetTVTestApp.framework */; };
+		A2E5208895F3040ABEF4E00A /* Pods_SweetTVTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8530D37F5434C31E411F28DB /* Pods_SweetTVTestApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6A1F8D7F7CF7446AABBA3F26 /* Pods-SweetTVTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetTVTestApp.release.xcconfig"; path = "Target Support Files/Pods-SweetTVTestApp/Pods-SweetTVTestApp.release.xcconfig"; sourceTree = "<group>"; };
-		6BD6E583AB398BE15E5182A7 /* Pods_SweetTVTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SweetTVTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EC8BA8360F09C354C0ED00D /* Pods-SweetTVTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetTVTestApp.debug.xcconfig"; path = "Target Support Files/Pods-SweetTVTestApp/Pods-SweetTVTestApp.debug.xcconfig"; sourceTree = "<group>"; };
 		76109F3026DE477E00B1601B /* category.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = category.pb.swift; sourceTree = "<group>"; };
 		76109F3126DE477E00B1601B /* signup_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signup_service.pb.swift; sourceTree = "<group>"; };
 		76109F3226DE477E00B1601B /* time_offset.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = time_offset.pb.swift; sourceTree = "<group>"; };
@@ -125,7 +124,8 @@
 		76F797F63D6950BC00777461 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76F797F93D6950BC00777461 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76F797FB3D6950BC00777461 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F06CE989F87213C0FD111787 /* Pods-SweetTVTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetTVTestApp.debug.xcconfig"; path = "Target Support Files/Pods-SweetTVTestApp/Pods-SweetTVTestApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8530D37F5434C31E411F28DB /* Pods_SweetTVTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SweetTVTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D150FD4D902D5A4919D501F6 /* Pods-SweetTVTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetTVTestApp.release.xcconfig"; path = "Target Support Files/Pods-SweetTVTestApp/Pods-SweetTVTestApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,17 +133,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7E22029A14F22AB21E8CF5 /* Pods_SweetTVTestApp.framework in Frameworks */,
+				A2E5208895F3040ABEF4E00A /* Pods_SweetTVTestApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2ACF89B82F47768663C5A5A6 /* Frameworks */ = {
+		45A7957180A09DC79E333BE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6BD6E583AB398BE15E5182A7 /* Pods_SweetTVTestApp.framework */,
+				8530D37F5434C31E411F28DB /* Pods_SweetTVTestApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -256,7 +256,7 @@
 				76F797EC3D6950B700777461 /* SweetTVTestApp */,
 				76F797EB3D6950B700777461 /* Products */,
 				D65E7280F428885F709F3A28 /* Pods */,
-				2ACF89B82F47768663C5A5A6 /* Frameworks */,
+				45A7957180A09DC79E333BE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,8 +288,8 @@
 		D65E7280F428885F709F3A28 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F06CE989F87213C0FD111787 /* Pods-SweetTVTestApp.debug.xcconfig */,
-				6A1F8D7F7CF7446AABBA3F26 /* Pods-SweetTVTestApp.release.xcconfig */,
+				2EC8BA8360F09C354C0ED00D /* Pods-SweetTVTestApp.debug.xcconfig */,
+				D150FD4D902D5A4919D501F6 /* Pods-SweetTVTestApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -301,11 +301,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76F797FE3D6950BC00777461 /* Build configuration list for PBXNativeTarget "SweetTVTestApp" */;
 			buildPhases = (
-				43F4B422579B9637AF97D1D4 /* [CP] Check Pods Manifest.lock */,
+				C8364712DA81511650B1F4A0 /* [CP] Check Pods Manifest.lock */,
 				76F797E63D6950B700777461 /* Sources */,
 				76F797E73D6950B700777461 /* Frameworks */,
 				76F797E83D6950B700777461 /* Resources */,
-				04293C0CE16F83154E3831D2 /* [CP] Embed Pods Frameworks */,
+				07D1BEC8428699DC38294E9D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -340,8 +340,8 @@
 			);
 			mainGroup = 76F797E13D6950B700777461;
 			packageReferences = (
-				76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift" */,
-				76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift.git" */,
+				76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf.git" */,
 			);
 			productRefGroup = 76F797EB3D6950B700777461 /* Products */;
 			projectDirPath = "";
@@ -366,7 +366,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04293C0CE16F83154E3831D2 /* [CP] Embed Pods Frameworks */ = {
+		07D1BEC8428699DC38294E9D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -383,7 +383,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SweetTVTestApp/Pods-SweetTVTestApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		43F4B422579B9637AF97D1D4 /* [CP] Check Pods Manifest.lock */ = {
+		C8364712DA81511650B1F4A0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -607,7 +607,7 @@
 		};
 		76F797FF3D6950BC00777461 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F06CE989F87213C0FD111787 /* Pods-SweetTVTestApp.debug.xcconfig */;
+			baseConfigurationReference = 2EC8BA8360F09C354C0ED00D /* Pods-SweetTVTestApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -626,7 +626,7 @@
 		};
 		76F798003D6950BC00777461 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A1F8D7F7CF7446AABBA3F26 /* Pods-SweetTVTestApp.release.xcconfig */;
+			baseConfigurationReference = D150FD4D902D5A4919D501F6 /* Pods-SweetTVTestApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -667,7 +667,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+		76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift.git";
 			requirement = {
@@ -675,7 +675,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+		76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {

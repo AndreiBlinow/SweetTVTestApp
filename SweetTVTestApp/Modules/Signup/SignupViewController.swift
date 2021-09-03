@@ -15,7 +15,18 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
    
     var presenter: SignupPresenterProtocol!
     var phoneNumberSet = false
-    //    let configurator: SignupConfiguratorProtocol = SignupConfigurator()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        phoneTextfield.becomeFirstResponder()
+    }
+    
     var phoneTextfield: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
@@ -61,16 +72,7 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
     var userPhoneNumber = ""
     var confirmationCode = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setConstraints()
-    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        phoneTextfield.becomeFirstResponder()
-    }
     
     private func setConstraints() {
         view.addSubview(self.phoneTextfield)

@@ -5,8 +5,8 @@ import SwiftProtobuf
 import Foundation
 import NIO
 
-protocol MoviesViewProtocol: class {
-    //func setUrlButtonTitle(with title: String)
+protocol MoviesViewProtocol: AnyObject {
+    
 }
 
 class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDelegate, UITableViewDataSource{
@@ -22,7 +22,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
             return
         }
         
-        movieList = presenter.getMoviesList(genreId)
+        movieList = presenter.getMoviesList(genreID: genreId)
         
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -41,7 +41,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.movieClicked(genreName: movieList[indexPath.row])
+        presenter.movieClicked(index: indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

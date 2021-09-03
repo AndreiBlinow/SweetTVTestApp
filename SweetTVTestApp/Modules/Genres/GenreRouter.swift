@@ -1,9 +1,4 @@
-//
-//  GenreRouter.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
+
 
 import UIKit
 

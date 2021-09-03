@@ -50,7 +50,7 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.genreClicked(genreID: indexPath.row)
+        presenter.genreClicked(index: indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

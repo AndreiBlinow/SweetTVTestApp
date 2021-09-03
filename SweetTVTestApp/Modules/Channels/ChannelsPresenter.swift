@@ -28,7 +28,7 @@ class ChannelsPresenter: ChannelsPresenterProtocol {
         let streamId = response.streamID
         let stream = "http://\(host):\(port)\(url)"
         print(stream)
-        router.closeCurrentViewController(url: stream)
+        router.closeCurrentViewController(url: stream, id: streamId)
     }
     func getChannelsNameList() -> [String] {
         channels = interactor.getListOfChannels()

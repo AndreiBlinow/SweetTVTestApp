@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol MoviesRouterProtocol: class {
-    func closeCurrentViewController()
+protocol MoviesRouterProtocol: AnyObject {
+    func closeCurrentViewController(movieId: Int32, ownerId: Int32)
 }
 
 
@@ -20,7 +20,22 @@ class MoviesRouter: MoviesRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController() {
-        viewController.dismiss(animated: true, completion: nil)
+    func closeCurrentViewController(movieId: Int32, ownerId: Int32) {
+        
+        let linkRequest = getLink(movieId: movieId, ownerId: ownerId)
+        let link = linkRequest.url
+        let playerView = PlayerConfigurator().configure(url: link)
+        viewController.present(playerView, animated: false)
+    }
+    
+    func getLink(movieId: Int32, ownerId: Int32) -> MovieService_GetLinkResponse {
+        let service = DataRepository.shared.getMovieService()
+        var linkRequest = MovieService_GetLinkRequest()
+        linkRequest.auth = DataRepository.shared.getToken()
+        linkRequest.movieID = movieId
+        linkRequest.ownerID = ownerId
+        let call = service.getLink(linkRequest)
+        let response = try! call.response.wait()
+        return response
     }
 }

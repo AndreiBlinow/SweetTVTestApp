@@ -1,7 +1,8 @@
 
 
 protocol PlayerPresenterProtocol: AnyObject {
-    
+    func closeStream(id: Int32)
+    func closePlayer()
 }
         
 class PlayerPresenter: PlayerPresenterProtocol {
@@ -14,5 +15,17 @@ class PlayerPresenter: PlayerPresenterProtocol {
         
     }
     
+    func closeStream(id: Int32) {
+        let service = DataRepository.shared.getTvService()
+        var closeStreamRequest = TvService_CloseStreamRequest()
+        closeStreamRequest.auth = DataRepository.shared.getToken()
+        closeStreamRequest.streamID = id
+        let call = service.closeStream(closeStreamRequest)
+        let response = try! call.response.wait()
+        print(response)
+    }
     
+    func closePlayer() {
+        router.closeView()
+    }
 }

@@ -3,14 +3,15 @@
 import UIKit
 
 protocol PlayerConfiguratorProtocol: AnyObject {
-    func configure(url: String) -> PlayerViewController
+    func configure(url: String, channelID: Int32?) -> PlayerViewController
 }
 
 class PlayerConfigurator: PlayerConfiguratorProtocol {
     
-    func configure(url: String) -> PlayerViewController {
+    func configure(url: String, channelID: Int32? = nil) -> PlayerViewController {
         let view = PlayerViewController()
         view.urlString = url
+        view.channelID = channelID
         let presenter = PlayerPresenter(view: view)
         view.presenter = presenter
         let interactor = PlayerInteractor(presenter: presenter)
