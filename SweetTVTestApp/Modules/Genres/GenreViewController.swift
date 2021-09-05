@@ -2,7 +2,7 @@
 
 import UIKit
 
-protocol GenreViewProtocol: class {
+protocol GenreViewProtocol: AnyObject {
     //func setUrlButtonTitle(with title: String)
 }
 

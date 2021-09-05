@@ -1,5 +1,5 @@
 
-protocol MoviesPresenterProtocol: class {
+protocol MoviesPresenterProtocol: AnyObject {
     var router: MoviesRouterProtocol! { set get }
     var movies: [MovieService_Movie] { set get }
     func getMoviesList(genreID: Int32) -> [String]
@@ -19,9 +19,9 @@ class MoviesPresenter: MoviesPresenterProtocol {
     }
 
     func movieClicked(index: Int){
-        var pair = movies[index].externalIDPairs.first(where: \.preferred)
-        var movieId = pair?.externalID
-        var ownerId = pair?.ownerID
+        let pair = movies[index].externalIDPairs.first(where: \.preferred)
+        let movieId = pair?.externalID
+        let ownerId = pair?.ownerID
         guard let movId = movieId else {
             return
         }
@@ -32,7 +32,7 @@ class MoviesPresenter: MoviesPresenterProtocol {
     }
     func getMoviesList(genreID: Int32) -> [String] {
         movies = interactor.getListOfMovies(genre: genreID)
-        var moviesList = movies.map{ $0.title }
+        let moviesList = movies.map{ $0.title }
         return moviesList
     }
 }

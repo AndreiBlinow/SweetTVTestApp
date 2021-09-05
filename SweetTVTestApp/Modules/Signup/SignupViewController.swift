@@ -2,7 +2,6 @@
 import UIKit
 
 protocol SignupViewProtocol: AnyObject {
-    //func setUrlButtonTitle(with title: String)
     func showSMSField()
     func showAlert()
 }
@@ -20,6 +19,7 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         phoneTextfield.becomeFirstResponder()
     }
     
@@ -33,6 +33,7 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
+    
     var confirmationCodetextField: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
@@ -96,10 +97,8 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
             }
             presenter.confirmationCodeEntered(code: code)
         }
-        
     }
         
-    
     func showSMSField() {
         confirmationCodetextField.isHidden = false
         phoneTextfield.isUserInteractionEnabled = false

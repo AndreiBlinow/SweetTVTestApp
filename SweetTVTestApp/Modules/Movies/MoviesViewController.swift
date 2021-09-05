@@ -19,7 +19,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
         }
         
         movieList = presenter.getMoviesList(genreID: genreId)
-        
+
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width

@@ -20,11 +20,7 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
-    
-        if let updateTime = updateStream {
-            
-        }
+        UIDevice.current.setValue(value, forKey: "orientation")
         
         guard let urlString = urlString else {
             return
@@ -37,23 +33,31 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.view.frame = playerFrame
-            
+        
         addChild(playerViewController)
         view.addSubview(playerViewController.view)
         playerViewController.didMove(toParent: self)
         playerViewController.entersFullScreenWhenPlaybackBegins = true
         playerViewController.showsPlaybackControls = true
-
+        
         player.play()
         
-        if let streamId = streamID {
-            let timer = Timer.scheduledTimer(timeInterval: Double(updateStream!), target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+        if streamID != nil {
+            guard let stream = updateStream else {return}
+            Timer.scheduledTimer(withTimeInterval: Double(stream), repeats: true) {[weak self] timer in
+                guard let self = self else {return}
+                self.request.auth = DataRepository.shared.getToken()
+                if let streamId = self.streamID {
+                    self.request.streamID = streamId
+                }
+                _ = self.tvService.updateStream(self.request)
+            }
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-
+        
         if let streamId = streamID {
             tvService = DataRepository.shared.getTvService()
             var closeStreamRequest = TvService_CloseStreamRequest()
@@ -62,24 +66,9 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
             let call = tvService.closeStream(closeStreamRequest)
             let response = try! call.response.wait()
             print(response)
+            let value = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
         }
-    }
-    
-    @objc func fire(){
-        request.auth = DataRepository.shared.getToken()
-        if let streamId = streamID {
-            request.streamID = streamId
-        }
-        let call = tvService.updateStream(request)
-        let response = try! call.response
-        print("timer fired")
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeLeft
-    }
-    override var shouldAutorotate: Bool {
-        return true
     }
 }
 
