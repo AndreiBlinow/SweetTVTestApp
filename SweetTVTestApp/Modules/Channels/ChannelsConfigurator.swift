@@ -1,7 +1,5 @@
 
 
-import UIKit
-
 protocol ChannelsConfiguratorProtocol: AnyObject {
     func configure() -> ChannelsViewController
 }

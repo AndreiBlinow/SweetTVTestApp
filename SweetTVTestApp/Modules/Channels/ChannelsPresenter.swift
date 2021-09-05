@@ -30,7 +30,7 @@ class ChannelsPresenter: ChannelsPresenterProtocol {
         let streamUpdate = response.updateInterval
         let stream = "http://\(host):\(port)\(url)"
         print(stream)
-        router.playStream(url: stream, id: streamId, updateTime: streamUpdate)
+        router.playStream(url: stream, streamId: streamId, updateTime: streamUpdate)
     }
     func getChannelsNameList() -> [String] {
         channels = interactor.getListOfChannels()

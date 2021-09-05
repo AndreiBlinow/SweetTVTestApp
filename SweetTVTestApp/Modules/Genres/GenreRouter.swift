@@ -3,7 +3,7 @@
 import UIKit
 
 protocol GenreRouterProtocol: AnyObject {
-    func closeCurrentViewController(genreID: Int32)
+    func playMovie(genreID: Int32)
 }
 
 
@@ -15,13 +15,11 @@ class GenreRouter: GenreRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController(genreID: Int32) {
+    func playMovie(genreID: Int32) {
         
         let moviesView = MoviesConfigurator().configure(genreID: genreID)
         
         viewController.navigationController?.pushViewController(moviesView, animated: false)
         
-        //viewController.present(moviesView, animated: false)
-              
     }
 }

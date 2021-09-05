@@ -1,10 +1,4 @@
 
-import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
-import NIOHPACK
 
 protocol MoviesInteractorProtocol: AnyObject {
     func getListOfMovies(genre: Int32) -> [MovieService_Movie]

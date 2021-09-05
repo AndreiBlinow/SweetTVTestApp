@@ -1,17 +1,7 @@
-//
-//  Repositoryy.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
 
-import UIKit
 import GRPC
-import SwiftProtobuf
-import Foundation
 import NIO
 import NIOHPACK
-
 
 class DataRepository {
     static let shared = DataRepository()
@@ -35,14 +25,12 @@ class DataRepository {
     func getTvService() -> TvService_TvServiceClient {
         return TvService_TvServiceClient(channel: channel as! GRPCChannel, defaultCallOptions: callOptions)
     }
-//
+    
     func getMovieService() -> MovieService_MovieServiceClient {
         return MovieService_MovieServiceClient(channel: channel as! GRPCChannel, defaultCallOptions: callOptions)
     }
-//
+
     func getSignupService() -> SignupService_SignupServiceClient {
         return SignupService_SignupServiceClient(channel: channel as! GRPCChannel)
     }
-//
-//
 }

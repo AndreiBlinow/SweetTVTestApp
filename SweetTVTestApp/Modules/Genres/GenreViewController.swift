@@ -1,22 +1,6 @@
-//
-//  GenreViewController.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
 
-//
-//  ChannelsViewController.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
 
 import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
 
 protocol GenreViewProtocol: class {
     //func setUrlButtonTitle(with title: String)
@@ -33,7 +17,7 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Genres"
-        
+   
         genreList = presenter.getGenreList()
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -45,9 +29,6 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
         myTableView.dataSource = self
         myTableView.delegate = self
         self.view.addSubview(myTableView)
-        
-        
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -62,10 +43,6 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(genreList[indexPath.row])"
         return cell
-    }
-    
-    @objc func showGenres(){
-        
     }
 }
 

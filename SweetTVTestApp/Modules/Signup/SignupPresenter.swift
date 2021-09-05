@@ -21,7 +21,7 @@ class SignupPresenter: SignupPresenterProtocol {
        let response = interactor.makeAuthCall(phoneNumber: phone)
         print(response.status)
         if response.status == .ok {
-            view.showSMSFiled()
+            view.showSMSField()
         }
     }
     
@@ -34,6 +34,8 @@ class SignupPresenter: SignupPresenterProtocol {
         if response.status == .ok {
             DataRepository.shared.setToken(token: response.authToken)
             router.userSignedUP()
+        } else {
+            view.showAlert()
         }
     }
     

@@ -1,10 +1,6 @@
 
 
 import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
 
 protocol ChannelsViewProtocol: class {
     //func setUrlButtonTitle(with title: String)
@@ -20,6 +16,7 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Channels"
         channelsNameList = presenter.getChannelsNameList()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Genres", style: .plain, target: self, action: #selector(showGenres))

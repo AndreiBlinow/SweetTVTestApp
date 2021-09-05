@@ -1,7 +1,5 @@
 
 
-import UIKit
-
 protocol MoviesConfiguratorProtocol: AnyObject {
     func configure(genreID: Int32) -> MoviesViewController
 }

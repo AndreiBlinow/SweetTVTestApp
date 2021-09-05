@@ -1,9 +1,4 @@
-//
-//  GenreRouter.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
+
 
 import UIKit
 
@@ -25,7 +20,6 @@ class MoviesRouter: MoviesRouterProtocol {
         let linkRequest = getLink(movieId: movieId, ownerId: ownerId)
         let link = linkRequest.url
         let playerView = PlayerConfigurator().configure(url: link)
-        //viewController.navigationController?.pushViewController(playerView, animated: true)
         viewController.present(playerView, animated: false)
     }
     

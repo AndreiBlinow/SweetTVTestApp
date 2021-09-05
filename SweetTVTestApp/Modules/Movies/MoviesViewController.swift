@@ -1,9 +1,5 @@
 
 import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
 
 protocol MoviesViewProtocol: AnyObject {
     
@@ -35,10 +31,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
         myTableView.delegate = self
         self.view.addSubview(myTableView)
         
-        
-        
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.movieClicked(index: indexPath.row)

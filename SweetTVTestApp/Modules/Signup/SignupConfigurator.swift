@@ -1,7 +1,5 @@
 
 
-import UIKit
-
 protocol SignupConfiguratorProtocol: AnyObject {
     func configure() -> SignupViewController
 }

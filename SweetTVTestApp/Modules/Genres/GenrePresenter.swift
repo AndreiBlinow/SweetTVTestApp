@@ -1,9 +1,4 @@
-//
-//  ChannelsPresenter.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
+
 
 protocol GenrePresenterProtocol: class {
     var router: GenreRouterProtocol! { set get }
@@ -27,10 +22,11 @@ class GenrePresenter: GenrePresenterProtocol {
     func genreClicked(index: Int){
         var id = genres[index].id
         print(id)
-        router.closeCurrentViewController(genreID: id)
+        router.playMovie(genreID: id)
     }
     func getGenreList() -> [String] {
-        genres = interactor.getListOfGenries()
+        genres = interactor.getListOfGenries().filter {$0.title != "Сериалы"}
+        print(genres)
         var genreList = genres.map{ $0.title }
         return genreList
     }

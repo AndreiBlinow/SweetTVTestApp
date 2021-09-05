@@ -1,14 +1,10 @@
 
-
 import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
 
 protocol SignupViewProtocol: AnyObject {
     //func setUrlButtonTitle(with title: String)
-    func showSMSFiled()
+    func showSMSField()
+    func showAlert()
 }
 
 class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDelegate {
@@ -44,7 +40,6 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
         tf.textAlignment = .center
         tf.placeholder = "Enter confirmation code"
         tf.keyboardType = .numbersAndPunctuation
-        //        textField.becomeFirstResponder()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.isHidden = true
         return tf
@@ -60,10 +55,8 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
     }()
     
     var alertController: UIAlertController = {
-        let alco = UIAlertController(title: "Error", message: "Wrong Number", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default) { (action) in
-            
-        }
+        let alco = UIAlertController(title: "Error", message: "Wrong values", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
         alco.addAction(action)
         return alco
     }()
@@ -97,7 +90,6 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
                 return
             }
             presenter.phoneNumberEntered(phone: phone)
-           
         } else {
             guard let code = confirmationCodetextField.text else {
                 return
@@ -108,10 +100,17 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
     }
         
     
-    func showSMSFiled() {
+    func showSMSField() {
         confirmationCodetextField.isHidden = false
         phoneTextfield.isUserInteractionEnabled = false
     }
 
-    
+    func showAlert() {
+        present(alertController, animated: true){
+            self.phoneTextfield.text = ""
+            self.phoneTextfield.isUserInteractionEnabled = true
+            self.confirmationCodetextField.text = ""
+            self.confirmationCodetextField.isHidden = true
+        }
+    }
 }

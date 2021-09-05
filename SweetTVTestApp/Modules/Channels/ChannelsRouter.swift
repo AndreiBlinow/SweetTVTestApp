@@ -3,7 +3,7 @@
 import UIKit
 
 protocol ChannelsRouterProtocol: AnyObject {
-    func playStream(url: String, id: Int32, updateTime: uint)
+    func playStream(url: String, streamId: Int32, updateTime: uint)
     func showGenres()
 }
 
@@ -16,8 +16,8 @@ class ChannelsRouter: ChannelsRouterProtocol {
         self.viewController = viewController
     }
     
-    func playStream(url: String, id: Int32, updateTime: uint) {
-        let playerView = PlayerConfigurator().configure(url: url, channelID: id, updateTime: updateTime)
+    func playStream(url: String, streamId: Int32, updateTime: uint) {
+        let playerView = PlayerConfigurator().configure(url: url, streamID: streamId, updateTime: updateTime)
         viewController.present(playerView, animated: false)
     }
     

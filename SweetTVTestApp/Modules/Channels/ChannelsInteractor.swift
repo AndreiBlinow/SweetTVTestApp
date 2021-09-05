@@ -1,10 +1,4 @@
 
-import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
-import NIOHPACK
 
 protocol ChannelsInteractorProtocol: AnyObject {
     func getListOfChannels() -> [TvService_Channel]

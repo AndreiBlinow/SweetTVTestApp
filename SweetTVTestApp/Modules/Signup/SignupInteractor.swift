@@ -1,11 +1,4 @@
 
-import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
-import NIOHPACK
-
 protocol SignupInteractorProtocol: AnyObject {
     func makeAuthCall(phoneNumber: String) -> SignupService_SetPhoneResponse
     func makeConfirmationCall(code: Int32) -> SignupService_SetCodeResponse

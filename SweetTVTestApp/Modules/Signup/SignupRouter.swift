@@ -21,9 +21,7 @@ class SignupRouter: SignupRouterProtocol {
         navController.modalPresentationStyle = .fullScreen
         
         viewController.present(navController, animated: true)
-        
-//        viewController.navigationController?.dismiss(animated: true, completion: nil)
-        
+
         viewController.navigationController?.pushViewController(channelsView, animated: true)
         
     }

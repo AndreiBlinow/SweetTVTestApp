@@ -1,10 +1,4 @@
 
-import UIKit
-import GRPC
-import SwiftProtobuf
-import Foundation
-import NIO
-import NIOHPACK
 
 protocol GenreInteractorProtocol: class {
     func getListOfGenries() -> [MovieService_Genre]
