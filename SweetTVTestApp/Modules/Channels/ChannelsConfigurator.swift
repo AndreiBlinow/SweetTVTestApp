@@ -2,7 +2,7 @@
 
 import UIKit
 
-protocol ChannelsConfiguratorProtocol: class {
+protocol ChannelsConfiguratorProtocol: AnyObject {
     func configure() -> ChannelsViewController
 }
 

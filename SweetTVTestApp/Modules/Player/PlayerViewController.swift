@@ -17,52 +17,60 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
     var presenter: PlayerPresenterProtocol!
     var urlString: String?
     var channelID: Int32?
+    var updateStream: uint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+//            UIDevice.current.setValue(value, forKey: "orientation")
+//
+        
+        let tvService = DataRepository.shared.getTvService()
+        
         
         guard let urlString = urlString else {
             return
         }
         let url = URL(string: urlString)
         
-        let asset = AVAsset(url: url!)
-        let playerItem = AVPlayerItem(asset: asset)
-        let player = AVPlayer(playerItem: playerItem)
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        
-        self.view.layer.addSublayer(playerLayer)
-        
+        let player = AVPlayer(url: url!)
+        player.rate = 1
+        let playerFrame = self.view.layer.bounds
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        playerViewController.view.frame = playerFrame
+            
+        addChild(playerViewController)
+        view.addSubview(playerViewController.view)
+        playerViewController.didMove(toParent: self)
+        playerViewController.entersFullScreenWhenPlaybackBegins = true
+        playerViewController.showsPlaybackControls = true
+
         player.play()
-    }
-    
-    var closeButton: UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = .red
-        btn.setTitle("Confirm", for: .normal)
-        btn.addTarget(self, action: #selector(closePlayer), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
-    
-    private func setConstraints() {
-        view.addSubview(self.closeButton)
         
-        NSLayoutConstraint.activate([
-            closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20),
-            closeButton.widthAnchor.constraint(equalToConstant: 30),
-            closeButton.heightAnchor.constraint(equalToConstant: 31),
-        ])
+        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)    }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(true)
+//
+//        if let channelId = channelID {
+//            let service = DataRepository.shared.getTvService()
+//            var closeStreamRequest = TvService_CloseStreamRequest()
+//            closeStreamRequest.auth = DataRepository.shared.getToken()
+//            closeStreamRequest.streamID = channelId
+//            let call = service.closeStream(closeStreamRequest)
+//            let response = try! call.response.wait()
+//            print(response)
+//        }
+//    }
+    
+    @objc func updateStreame(){
+        var request = TvService_UpdateStreamRequest()
+        request.auth = DataRepository.shared.getToken()
+        request.streamID = 
+        tvService.updateStream(TvService_UpdateStreamRequest)
     }
     
-    @objc func closePlayer() {
-        if let id = channelID {
-            presenter.closeStream(id: id)
-        }
-        presenter.closePlayer()
-    }
 }

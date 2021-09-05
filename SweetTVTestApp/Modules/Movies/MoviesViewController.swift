@@ -42,6 +42,7 @@ class MoviesViewController: UIViewController, MoviesViewProtocol, UITableViewDel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.movieClicked(index: indexPath.row)
+        print(indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

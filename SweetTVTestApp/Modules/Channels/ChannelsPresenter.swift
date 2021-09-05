@@ -4,6 +4,7 @@ protocol ChannelsPresenterProtocol: class {
     var channels: [TvService_Channel] {get set}
     func channelClicked(index: Int)
     func getChannelsNameList() -> [String]
+    func showGenresView()
 }
         
 class ChannelsPresenter: ChannelsPresenterProtocol {
@@ -26,13 +27,17 @@ class ChannelsPresenter: ChannelsPresenterProtocol {
         let port = httpStream.host.port
         let url = httpStream.url
         let streamId = response.streamID
+        let streamUpdate = response.updateInterval
         let stream = "http://\(host):\(port)\(url)"
         print(stream)
-        router.closeCurrentViewController(url: stream, id: streamId)
+        router.playStream(url: stream, id: streamId, updateTime: streamUpdate)
     }
     func getChannelsNameList() -> [String] {
         channels = interactor.getListOfChannels()
         return channels.map{$0.name}
+    }
+    func showGenresView () {
+        router.showGenres()
     }
     
 }

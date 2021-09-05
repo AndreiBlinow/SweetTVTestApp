@@ -32,6 +32,8 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Genres"
+        
         genreList = presenter.getGenreList()
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -48,7 +50,6 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
         
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.genreClicked(index: indexPath.row)
     }
@@ -61,6 +62,10 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(genreList[indexPath.row])"
         return cell
+    }
+    
+    @objc func showGenres(){
+        
     }
 }
 

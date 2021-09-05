@@ -18,7 +18,10 @@ class GenreRouter: GenreRouterProtocol {
     func closeCurrentViewController(genreID: Int32) {
         
         let moviesView = MoviesConfigurator().configure(genreID: genreID)
-        viewController.present(moviesView, animated: false)
+        
+        viewController.navigationController?.pushViewController(moviesView, animated: false)
+        
+        //viewController.present(moviesView, animated: false)
               
     }
 }

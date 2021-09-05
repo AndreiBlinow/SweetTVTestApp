@@ -20,7 +20,10 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Channels"
         channelsNameList = presenter.getChannelsNameList()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Genres", style: .plain, target: self, action: #selector(showGenres))
+        
         var myTableView: UITableView!
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
@@ -47,5 +50,9 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(channelsNameList[indexPath.row])"
         return cell
+    }
+    
+    @objc func showGenres (){
+        presenter.showGenresView()
     }
 }

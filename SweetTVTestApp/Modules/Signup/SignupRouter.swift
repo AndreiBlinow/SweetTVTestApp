@@ -15,14 +15,16 @@ class SignupRouter: SignupRouterProtocol {
     }
     
     func userSignedUP() {
-//        let channelsView = ChannelsConfigurator().configure()
-        let genresView = GenreConfigurator().configure()
+        let channelsView = ChannelsConfigurator().configure()
         
-        viewController.navigationController?.dismiss(animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: channelsView)
+        navController.modalPresentationStyle = .fullScreen
         
+        viewController.present(navController, animated: true)
         
+//        viewController.navigationController?.dismiss(animated: true, completion: nil)
         
-        viewController.navigationController?.pushViewController(genresView, animated: true)
+        viewController.navigationController?.pushViewController(channelsView, animated: true)
         
     }
 }

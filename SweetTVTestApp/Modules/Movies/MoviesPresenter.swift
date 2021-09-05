@@ -28,7 +28,7 @@ class MoviesPresenter: MoviesPresenterProtocol {
         guard let ownId = ownerId else {
             return
         }
-        router.closeCurrentViewController(movieId: movId, ownerId: ownId)
+        router.showMovie(movieId: movId, ownerId: ownId)
     }
     func getMoviesList(genreID: Int32) -> [String] {
         movies = interactor.getListOfMovies(genre: genreID)

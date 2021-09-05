@@ -1,14 +1,10 @@
-//
-//  ChannelsRouter.swift
-//  SweetTVTestApp
-//
-//  Created by AndreiBlinov on 09.09.2033.
-//
+
 
 import UIKit
 
 protocol ChannelsRouterProtocol: AnyObject {
-    func closeCurrentViewController(url: String, id: Int32)
+    func playStream(url: String, id: Int32, updateTime: uint)
+    func showGenres()
 }
 
 
@@ -20,8 +16,13 @@ class ChannelsRouter: ChannelsRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController(url: String, id: Int32) {
-        let playerView = PlayerConfigurator().configure(url: url, channelID: id)
+    func playStream(url: String, id: Int32, updateTime: uint) {
+        let playerView = PlayerConfigurator().configure(url: url, channelID: id, updateTime: updateTime)
         viewController.present(playerView, animated: false)
+    }
+    
+    func showGenres() {
+        let genresViewController = GenreConfigurator().configure()
+        viewController.navigationController?.pushViewController(genresViewController, animated: true)
     }
 }

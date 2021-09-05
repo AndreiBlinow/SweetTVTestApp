@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MoviesRouterProtocol: AnyObject {
-    func closeCurrentViewController(movieId: Int32, ownerId: Int32)
+    func showMovie(movieId: Int32, ownerId: Int32)
 }
 
 
@@ -20,11 +20,12 @@ class MoviesRouter: MoviesRouterProtocol {
         self.viewController = viewController
     }
     
-    func closeCurrentViewController(movieId: Int32, ownerId: Int32) {
+    func showMovie(movieId: Int32, ownerId: Int32) {
         
         let linkRequest = getLink(movieId: movieId, ownerId: ownerId)
         let link = linkRequest.url
         let playerView = PlayerConfigurator().configure(url: link)
+        //viewController.navigationController?.pushViewController(playerView, animated: true)
         viewController.present(playerView, animated: false)
     }
     

@@ -10,16 +10,17 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var navController = UINavigationController()
-
+    //var navController = UINavigationController()
+    let signupViewController = SignupConfigurator().configure()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let signupViewController = SignupConfigurator().configure()
-        self.navController = UINavigationController(rootViewController: signupViewController)
+        //let signupViewController = SignupConfigurator().configure()
+        //self.navController = UINavigationController(rootViewController: signupViewController)
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController = self.navController
+        self.window?.rootViewController = self.signupViewController
         
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
