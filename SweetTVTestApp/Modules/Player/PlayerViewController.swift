@@ -25,9 +25,10 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
         guard let urlString = urlString else {
             return
         }
-        let url = URL(string: urlString)
+        let path = URL(string: urlString)
+        guard let url = path else {return}
         
-        let player = AVPlayer(url: url!)
+        let player = AVPlayer(url: url)
         player.rate = 1
         let playerFrame = self.view.layer.bounds
         let playerViewController = AVPlayerViewController()
