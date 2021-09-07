@@ -50,7 +50,16 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
                 if let streamId = self.streamID {
                     self.request.streamID = streamId
                 }
-                _ = self.tvService.updateStream(self.request)
+                DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                    
+                    guard let self = self else {return}
+                    guard let call = try? self.tvService.updateStream(self.request) else {
+                        return
+                    }
+                    call.response.whenSuccess { response in
+                        print(response)
+                    }
+                }
             }
         }
     }
@@ -59,16 +68,10 @@ class PlayerViewController: UIViewController, PlayerViewProtocol {
         super.viewDidDisappear(true)
         
         if let streamId = streamID {
-            tvService = DataRepository.shared.getTvService()
-            var closeStreamRequest = TvService_CloseStreamRequest()
-            closeStreamRequest.auth = DataRepository.shared.getToken()
-            closeStreamRequest.streamID = streamId
-            let call = tvService.closeStream(closeStreamRequest)
-            let response = try! call.response.wait()
-            print(response)
-            let value = UIInterfaceOrientation.portrait.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
+            presenter.closeStream(id: streamId)
         }
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
     }
 }
 

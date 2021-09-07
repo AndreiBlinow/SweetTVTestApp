@@ -4,7 +4,9 @@ protocol SignupPresenterProtocol: AnyObject {
     func phoneNumberEntered(phone: String)
     func confirmationCodeEntered(code: String)
     var router: SignupRouterProtocol! { set get }
-    
+    func userPhoneNumberSet()
+    func userCodeSet()
+    func signUpError()
 }
         
 class SignupPresenter: SignupPresenterProtocol {
@@ -18,26 +20,25 @@ class SignupPresenter: SignupPresenterProtocol {
     }
     
     func phoneNumberEntered(phone: String) {
-       let response = interactor.makeAuthCall(phoneNumber: phone)
-        print(response.status)
-        if response.status == .ok {
-            view.showSMSField()
-        }
+       interactor.makeAuthCall(phoneNumber: phone)
     }
     
     func confirmationCodeEntered (code: String) {
         guard let confCode = Int32( code ) else {
             return
         }
-        let response = interactor.makeConfirmationCall(code: confCode)
-        
-        if response.status == .ok {
-            DataRepository.shared.setToken(token: response.authToken)
-            router.userSignedUP()
-        } else {
-            view.showAlert()
-        }
+        interactor.makeConfirmationCall(code: confCode)
     }
     
+    func userPhoneNumberSet(){
+        view.showSMSField()
+    }
     
+    func userCodeSet(){
+        router.userSignedUP()
+    }
+    
+    func signUpError(){
+        view.showAlert()
+    }
 }

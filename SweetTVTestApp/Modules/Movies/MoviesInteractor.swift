@@ -1,7 +1,7 @@
-
+import UIKit
 
 protocol MoviesInteractorProtocol: AnyObject {
-    func getListOfMovies(genre: Int32) -> [MovieService_Movie]
+    func getListOfMovies(genre: Int32)
 }
 
 
@@ -9,45 +9,47 @@ class MoviesInteractor: MoviesInteractorProtocol {
     
     weak var presenter: MoviesPresenterProtocol!
     var repository = DataRepository.shared
+    let movieService: MovieService_MovieServiceClient
     
     required init(presenter: MoviesPresenterProtocol) {
         self.presenter = presenter
+        movieService = repository.getMovieService()
     }
     
-    
-    
     func getMoviesIDs(genre: Int32) -> [Int32] {
-        
-        let movieService = repository.getMovieService()
         
         var movieIDsRequest = MovieService_GetGenreMoviesRequest()
         movieIDsRequest.auth = DataRepository.shared.getToken()
         movieIDsRequest.genreID = genre
         
-        
-        print("REQUEST MESSAGE \(movieIDsRequest)")
         let call = movieService.getGenreMovies(movieIDsRequest)
         let response = try! call.response.wait()
-        print("CALL SUCCESS WITH RESPONSE \(response)")
         return response.movies
     }
     
-    func getListOfMovies(genre: Int32) -> [MovieService_Movie] {
-        
-        let movieServiceChannel = DataRepository.shared.getMovieService()
+    func getListOfMovies(genre: Int32) {
         
         var movieListRequest = MovieService_GetMovieInfoRequest()
         movieListRequest.auth = repository.getToken()  
         movieListRequest.offset = 30
         movieListRequest.needExtendedInfo = false
         movieListRequest.limit = 100
-        movieListRequest.movies = getMoviesIDs(genre: genre)
         
-        print("REQUEST MESSAGE \(movieListRequest)")
-        let call = movieServiceChannel.getMovieInfo(movieListRequest)
-        let response = try! call.response.wait()
-        print("CALL SUCCESS WITH RESPONSE \(response)")
-        return response.movies
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let self = self else {return}
+            movieListRequest.movies = self.getMoviesIDs(genre: genre)
+            
+            guard let call = try? self.movieService.getMovieInfo(movieListRequest) else {
+                return
+            }
+            call.response.whenSuccess { response in
+                DispatchQueue.main.async {
+                    self.presenter.setMoviesList(list: response.movies)
+                }
+            }
+        }
     }
 }
 

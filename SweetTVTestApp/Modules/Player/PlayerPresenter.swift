@@ -1,4 +1,4 @@
-
+import UIKit
 
 protocol PlayerPresenterProtocol: AnyObject {
     func closeStream(id: Int32)
@@ -20,9 +20,16 @@ class PlayerPresenter: PlayerPresenterProtocol {
         var closeStreamRequest = TvService_CloseStreamRequest()
         closeStreamRequest.auth = DataRepository.shared.getToken()
         closeStreamRequest.streamID = id
-        let call = service.closeStream(closeStreamRequest)
-        let response = try! call.response.wait()
-        print(response)
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let call = try? service.closeStream(closeStreamRequest) else {
+                return
+            }
+            call.response.whenSuccess { response in
+                print(response)
+            }
+        }
     }
     
     func closePlayer() {

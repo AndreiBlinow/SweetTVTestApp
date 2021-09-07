@@ -23,14 +23,14 @@ class DataRepository {
         return self.token
     }
     func getTvService() -> TvService_TvServiceClient {
-        return TvService_TvServiceClient(channel: channel as! GRPCChannel, defaultCallOptions: callOptions)
+        return TvService_TvServiceClient(channel: channel as GRPCChannel, defaultCallOptions: callOptions)
     }
     
     func getMovieService() -> MovieService_MovieServiceClient {
-        return MovieService_MovieServiceClient(channel: channel as! GRPCChannel, defaultCallOptions: callOptions)
+        return MovieService_MovieServiceClient(channel: channel as GRPCChannel, defaultCallOptions: callOptions)
     }
 
     func getSignupService() -> SignupService_SignupServiceClient {
-        return SignupService_SignupServiceClient(channel: channel as! GRPCChannel)
+        return SignupService_SignupServiceClient(channel: channel as GRPCChannel)
     }
 }

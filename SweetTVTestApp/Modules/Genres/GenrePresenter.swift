@@ -1,10 +1,11 @@
 
 
-protocol GenrePresenterProtocol: class {
+protocol GenrePresenterProtocol: AnyObject {
     var router: GenreRouterProtocol! { set get }
     var genres: [MovieService_Genre] {get set}
-    func getGenreList () -> [String]
+    func getGenreList ()
     func genreClicked(index: Int)
+    func setGenresList(genresList: [MovieService_Genre])
 }
         
 class GenrePresenter: GenrePresenterProtocol {
@@ -20,15 +21,16 @@ class GenrePresenter: GenrePresenterProtocol {
     }
 
     func genreClicked(index: Int){
-        var id = genres[index].id
-        print(id)
+        let id = genres[index].id
         router.playMovie(genreID: id)
     }
-    func getGenreList() -> [String] {
-        genres = interactor.getListOfGenries().filter {$0.title != "Сериалы"}
-        print(genres)
-        var genreList = genres.map{ $0.title }
-        return genreList
+    func setGenresList(genresList: [MovieService_Genre]) {
+        self.genres = genresList
+        view.genresList = genres.map{ $0.title }
+        view.table.reloadData()
+    }
+    func getGenreList() {
+        interactor.getListOfGenries()
     }
     
 }

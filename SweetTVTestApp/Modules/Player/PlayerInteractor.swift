@@ -1,4 +1,5 @@
 
+
 protocol PlayerInteractorProtocol: AnyObject {
     
 }
@@ -9,6 +10,4 @@ class PlayerInteractor: PlayerInteractorProtocol {
     required init(presenter: PlayerPresenterProtocol) {
         self.presenter = presenter
     }
-    
-    
 }

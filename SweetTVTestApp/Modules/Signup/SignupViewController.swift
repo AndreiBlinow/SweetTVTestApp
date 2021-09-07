@@ -9,18 +9,11 @@ protocol SignupViewProtocol: AnyObject {
 class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDelegate {
    
     var presenter: SignupPresenterProtocol!
-    var phoneNumberSet = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setConstraints()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        phoneTextfield.becomeFirstResponder()
     }
     
     var phoneTextfield: UITextField = {
@@ -61,12 +54,6 @@ class SignupViewController: UIViewController, SignupViewProtocol, UITextFieldDel
         alco.addAction(action)
         return alco
     }()
-    
-    
-    var userPhoneNumber = ""
-    var confirmationCode = ""
-    
-    
     
     private func setConstraints() {
         view.addSubview(self.phoneTextfield)

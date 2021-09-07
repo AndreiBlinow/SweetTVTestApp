@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9803D492-B253-4BAE-99E8-6D0505FBBCE0"
+            uuid = "0E82A4E4-CA8A-44ED-8EAE-20801F39EFC8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SweetTVTestApp/Modules/Player/PlayerViewController.swift"
+            filePath = "SweetTVTestApp/Modules/Channels/ChannelsInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "fire()"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "getListOfChannels()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78C556A0-3230-48E1-B560-ADD093DA1437"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SweetTVTestApp/Modules/Channels/ChannelsInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getListOfChannels()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -3,32 +3,34 @@
 import UIKit
 
 protocol GenreViewProtocol: AnyObject {
-    //func setUrlButtonTitle(with title: String)
+    var table: UITableView { get }
+    var genresList: [String] { get set }
 }
 
 
 
-class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDelegate, UITableViewDataSource{
-        
+class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDelegate, UITableViewDataSource {
+    
+    var genresList = [String]()
     var presenter: GenrePresenterProtocol!
     
-    var genreList = [String]()
+    
+    lazy var table: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Genres"
-   
-        genreList = presenter.getGenreList()
-        var myTableView: UITableView!
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
+        addConstraints()
+        presenter.getGenreList()
         
-        myTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
-        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        self.view.addSubview(myTableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -36,13 +38,22 @@ class GenreViewController: UIViewController, GenreViewProtocol, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return genreList.count
+        return genresList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
-        cell.textLabel!.text = "\(genreList[indexPath.row])"
+        cell.textLabel!.text = "\(genresList[indexPath.row])"
         return cell
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            table.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            table.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            table.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.size.height),
+            table.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
 

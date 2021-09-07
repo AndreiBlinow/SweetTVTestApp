@@ -1,8 +1,8 @@
-
+import UIKit
 
 protocol ChannelsInteractorProtocol: AnyObject {
-    func getListOfChannels() -> [TvService_Channel]
-    func makeOpenStreamCall(idOfChannel: Int32) -> TvService_OpenStreamResponse
+    func getListOfChannels()
+    func makeOpenStreamCall(idOfChannel: Int32)
 }
 
 
@@ -15,8 +15,8 @@ class ChannelsInteractor: ChannelsInteractorProtocol {
         self.presenter = presenter
     }
     
-    func getListOfChannels() -> [TvService_Channel] {
-
+    func getListOfChannels() {
+        
         var request = TvService_GetChannelsRequest()
         request.auth = repository.getToken()
         request.needEpg = false
@@ -27,29 +27,37 @@ class ChannelsInteractor: ChannelsInteractorProtocol {
         request.needHash = true
         request.needOffsets = false
         
-        print("REQUEST MESSAGE \(request)")
-        let call = tvServiceChannel.getChannels(request)
-        do {
-            let reply = try call.response.wait()
-            return reply.list
-            print(reply)
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let self = self else {return}
+            guard let call = try? self.tvServiceChannel.getChannels(request) else {
+                return
             }
-            catch let error {
-                return []
+            call.response.whenSuccess { response in
+                DispatchQueue.main.async {
+                    self.presenter.setChannelsList(channels: response.list)
+                }
             }
-//        print("CALL SUCCESS WITH RESPONSE \(response)")
-//        return response.list
+        }
     }
     
-    func makeOpenStreamCall(idOfChannel: Int32) -> TvService_OpenStreamResponse {
+    func makeOpenStreamCall(idOfChannel: Int32){
         var openStreamRequest = TvService_OpenStreamRequest()
         openStreamRequest.auth = repository.getToken()
         openStreamRequest.channelID = idOfChannel
 
-        print("REQUEST MESSAGE \(openStreamRequest)")
-        let call = tvServiceChannel.openStream(openStreamRequest)
-        let response = try! call.response.wait()
-        return response
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let self = self else {return}
+            guard let call = try? self.tvServiceChannel.openStream(openStreamRequest) else {
+                return
+            }
+            call.response.whenSuccess { response in
+                DispatchQueue.main.async {
+                    self.presenter.playStream(stream: response)
+                }
+            }
+        }
     }
 }
 

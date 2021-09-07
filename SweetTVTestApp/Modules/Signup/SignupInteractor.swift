@@ -1,9 +1,9 @@
+import UIKit
 
 protocol SignupInteractorProtocol: AnyObject {
-    func makeAuthCall(phoneNumber: String) -> SignupService_SetPhoneResponse
-    func makeConfirmationCall(code: Int32) -> SignupService_SetCodeResponse
+    func makeAuthCall(phoneNumber: String)
+    func makeConfirmationCall(code: Int32)
 }
-
 
 class SignupInteractor: SignupInteractorProtocol {
     
@@ -14,35 +14,54 @@ class SignupInteractor: SignupInteractorProtocol {
     required init(presenter: SignupPresenterProtocol) {
         self.presenter = presenter
     }
-    func makeAuthCall(phoneNumber: String) -> SignupService_SetPhoneResponse {
+    func makeAuthCall(phoneNumber: String){
         self.phone = phoneNumber
         var phoneRequest = SignupService_SetPhoneRequest()
         phoneRequest.phone = phoneNumber
         phoneRequest.device.type = .dtAndroidPlayer
         phoneRequest.device.mac = "34FCEFD9C4B2"
         
-        print("REQUEST MESSAGE \(phoneRequest)")
-        let call = signupService.setPhone(phoneRequest)
-        var response = SignupService_SetPhoneResponse()
-        response = try! call.response.wait()
-        print("CALL SUCCESS WITH RESPONSE \(response)")
-        return response
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let self = self else {return}
+            guard let call = try? self.signupService.setPhone(phoneRequest) else {
+                return
+            }
+            call.response.whenSuccess { response in
+                DispatchQueue.main.async {
+                    if response.status == .ok {
+                        self.presenter.userPhoneNumberSet()
+                    } else {
+                        self.presenter.signUpError()
+                    }
+                }
+            }
+        }
     }
     
-    func makeConfirmationCall(code: Int32) -> SignupService_SetCodeResponse {
+    func makeConfirmationCall(code: Int32) {
         
         var confirmationRequest = SignupService_SetCodeRequest()
         confirmationRequest.phone = self.phone
         confirmationRequest.confirmationCode = code
         
-        print("REQUEST MESSAGE \(confirmationRequest)")
-        let call = signupService.setCode(confirmationRequest)
-        let response = try! call.response.wait()
-        print("CALL SUCCESS WITH RESPONSE \(response)")
-        return response
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            
+            guard let self = self else {return}
+            guard let call = try? self.signupService.setCode(confirmationRequest) else {
+                return
+            }
+            call.response.whenSuccess { response in
+                DispatchQueue.main.async {
+                    if response.status == .ok {
+                        DataRepository.shared.setToken(token: response.authToken)
+                        self.presenter.userCodeSet()
+                    } else {
+                        self.presenter.signUpError()
+                    }
+                }
+            }
+        }
     }
-    
-
-    
 }
 

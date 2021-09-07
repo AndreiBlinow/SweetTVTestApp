@@ -2,8 +2,9 @@
 
 import UIKit
 
-protocol ChannelsViewProtocol: class {
-    //func setUrlButtonTitle(with title: String)
+protocol ChannelsViewProtocol: AnyObject {
+    var table: UITableView { get }
+    var channelsNameList: [String] { get set }
 }
 
 
@@ -14,7 +15,7 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
     
     var channelsNameList = [String]()
     
-    private lazy var table: UITableView = {
+    lazy var table: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = self
@@ -28,7 +29,7 @@ class ChannelsViewController: UIViewController, ChannelsViewProtocol, UITableVie
         super.viewDidLoad()
         addConstraints()
         title = "Channels"
-        channelsNameList = presenter.getChannelsNameList()
+        presenter.getChannelsNameList()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Genres", style: .plain, target: self, action: #selector(showGenres))
     }
     

@@ -58,7 +58,6 @@
 		765400DD26DE6E9800BA41CA /* PlayerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765400DC26DE6E9800BA41CA /* PlayerConfigurator.swift */; };
 		76F797EE3D6950B700777461 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F797ED3D6950B700777461 /* AppDelegate.swift */; };
 		76F797F03D6950B700777461 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F797EF3D6950B700777461 /* SceneDelegate.swift */; };
-		76F797F23D6950B700777461 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F797F13D6950B700777461 /* ViewController.swift */; };
 		76F797F53D6950B700777461 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F33D6950B700777461 /* Main.storyboard */; };
 		76F797F73D6950BC00777461 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F63D6950BC00777461 /* Assets.xcassets */; };
 		76F797FA3D6950BC00777461 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F797F83D6950BC00777461 /* LaunchScreen.storyboard */; };
@@ -119,7 +118,6 @@
 		76F797EA3D6950B700777461 /* SweetTVTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetTVTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F797ED3D6950B700777461 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76F797EF3D6950B700777461 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		76F797F13D6950B700777461 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		76F797F43D6950B700777461 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76F797F63D6950BC00777461 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76F797F93D6950BC00777461 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				76A7787626D2873D00AEA89C /* Services */,
 				76F797ED3D6950B700777461 /* AppDelegate.swift */,
 				76F797EF3D6950B700777461 /* SceneDelegate.swift */,
-				76F797F13D6950B700777461 /* ViewController.swift */,
 				76F797F33D6950B700777461 /* Main.storyboard */,
 				76F797F63D6950BC00777461 /* Assets.xcassets */,
 				76F797F83D6950BC00777461 /* LaunchScreen.storyboard */,
@@ -340,8 +337,8 @@
 			);
 			mainGroup = 76F797E13D6950B700777461;
 			packageReferences = (
-				76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift.git" */,
-				76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf.git" */,
+				76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			productRefGroup = 76F797EB3D6950B700777461 /* Products */;
 			projectDirPath = "";
@@ -417,7 +414,6 @@
 				76109F5426DE478000B1601B /* tv_service.grpc.swift in Sources */,
 				763F583E1A54B23E00E11328 /* MoviesConfigurator.swift in Sources */,
 				764972223D7E541900CAF65E /* SignupViewController.swift in Sources */,
-				76F797F23D6950B700777461 /* ViewController.swift in Sources */,
 				7649722C3D7E545500CAF65E /* SignupRouter.swift in Sources */,
 				761C32C53D7CDEAD00779528 /* ChannelsPresenter.swift in Sources */,
 				76109F4826DE478000B1601B /* signup_service.pb.swift in Sources */,
@@ -667,7 +663,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift.git" */ = {
+		76BD953926CECD1C00DA86AA /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift.git";
 			requirement = {
@@ -675,7 +671,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf.git" */ = {
+		76EEF07126CED3F0008C10D8 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
